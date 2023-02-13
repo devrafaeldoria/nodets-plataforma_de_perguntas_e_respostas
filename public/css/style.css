@@ -1,0 +1,17 @@
+body {
+    background-color: #eceff1;
+}
+
+#formulario-perguntas {
+    margin-top: 60px;
+}
+
+#formulario-perguntas h3 {
+    font-size: 20px;
+}
+
+nav h2 {
+    font-size: 22px;
+    padding: 0 20px;
+}
+

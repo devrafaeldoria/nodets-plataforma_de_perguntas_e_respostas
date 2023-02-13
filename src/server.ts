@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import mustache from 'mustache-express';
+import mainRouters from './routes/index';
 
 dotenv.config();
 
@@ -14,9 +15,7 @@ server.engine('mustache', mustache());
 server.use(express.urlencoded({extended:true}));
 server.use(express.static(path.join(__dirname, '../public')));
 
-server.get('/', (req: Request, res: Response) => {
-    res.send('pagina inicial')
-});
+server.use(mainRouters);
 
 server.use((req: Request, res: Response) => {
     res.status(404).send('Página não encontrada');
