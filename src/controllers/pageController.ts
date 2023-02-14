@@ -1,6 +1,13 @@
 import { Request, Response } from 'express';
+import { sequelize } from '../instances/pg';
 
-export const home = (req: Request, res: Response) => {
+export const home = async (req: Request, res: Response) => {
+    try {
+        await sequelize.authenticate();
+        console.log('Conectado ao banco de dados');
+    } catch(error) {
+        console.log(error);
+    }
     res.send('pagina inicial');
 }
 
