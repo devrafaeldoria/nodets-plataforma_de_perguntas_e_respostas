@@ -11,6 +11,7 @@ export interface PerguntaInterface extends Model {
 export const Pergunta = sequelize.define<PerguntaInterface>('Perguntas', {
     id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         autoIncrement: true
     },
     titulo: {

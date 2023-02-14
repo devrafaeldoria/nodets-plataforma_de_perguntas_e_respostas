@@ -1,23 +1,26 @@
 import { Request, Response } from 'express';
-import { sequelize } from '../instances/pg';
+import { Pergunta } from '../models/Pergunta';
 
 export const home = async (req: Request, res: Response) => {
-    try {
-        await sequelize.authenticate();
-        console.log('Conectado ao banco de dados');
-    } catch(error) {
-        console.log(error);
-    }
-    res.send('pagina inicial');
+    let perguntas = await Pergunta.findAll();
+    
+    res.render('pages/home', {
+        perguntas
+    });
 }
 
 export const perguntar = (req: Request, res: Response) => {
     res.render('pages/perguntar');
 }
 
-export const salvarPergunta = (req: Request, res: Response) => {
-    let title: string = req.body.titulo;
-    let question: string = req.body.descricao;
+export const salvarPergunta = async (req: Request, res: Response) => {
+    let titulo: string = req.body.titulo;
+    let descricao: string = req.body.descricao;
 
-    res.send(`Título: ${title}, Pergunta: ${question}`);
+    await Pergunta.create({
+        titulo,
+        descricao
+    });
+
+    res.redirect('/perguntar');
 }

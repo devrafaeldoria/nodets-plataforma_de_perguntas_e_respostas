@@ -1,0 +1,22 @@
+{{>partials/header}}
+
+<div class="container">
+    <br>
+    <h1>Perguntas</h1>
+    <a href="/perguntar" class="btn btn-success">Perguntar</a>
+    <hr>
+        
+    {{#perguntas}}
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <h3>{{ titulo }}</h3>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Responder</button>
+            </div>
+        </div>
+    {{/perguntas}}
+</div>
+
+{{>partials/footer}}
