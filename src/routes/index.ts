@@ -1,20 +1,12 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import * as PageController from '../controllers/pageController';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-    res.send('pagina inicial');
-});
+router.get('/', PageController.home);
 
-router.get('/perguntar', (req: Request, res: Response) => {
-    res.render('pages/perguntar');
-});
+router.get('/perguntar', PageController.perguntar);
 
-router.post('/salaverpergunta', (req: Request, res: Response) => {
-    let title: string = req.body.titulo;
-    let question: string = req.body.descricao;
-
-    res.send(`Título: ${title}, Pergunta: ${question}`);
-});
+router.post('/salaverpergunta', PageController.salvarPergunta);
 
 export default router;
