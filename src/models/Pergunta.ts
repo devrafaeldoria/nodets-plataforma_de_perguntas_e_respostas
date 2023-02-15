@@ -4,8 +4,7 @@ import { sequelize } from '../instances/pg'
 export interface PerguntaInterface extends Model {
     id: number,
     titulo: string,
-    descricao: string,
-    resposta: string
+    descricao: string
 }
 
 export const Pergunta = sequelize.define<PerguntaInterface>('Perguntas', {
@@ -18,9 +17,6 @@ export const Pergunta = sequelize.define<PerguntaInterface>('Perguntas', {
         type: DataTypes.STRING
     },
     descricao: {
-        type: DataTypes.STRING
-    },
-    resposta: {
         type: DataTypes.STRING
     }
 }, {

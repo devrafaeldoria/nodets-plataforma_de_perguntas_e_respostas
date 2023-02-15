@@ -9,4 +9,6 @@ router.get('/perguntar', PageController.perguntar);
 
 router.post('/salaverpergunta', PageController.salvarPergunta);
 
+router.get('/pergunta/:id', PageController.selecionarPergunta);
+
 export default router;

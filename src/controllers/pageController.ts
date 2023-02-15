@@ -2,7 +2,11 @@ import { Request, Response } from 'express';
 import { Pergunta } from '../models/Pergunta';
 
 export const home = async (req: Request, res: Response) => {
-    let perguntas = await Pergunta.findAll();
+    let perguntas = await Pergunta.findAll({
+        order: [
+            ['id', 'DESC']
+        ]
+    });
     
     res.render('pages/home', {
         perguntas
@@ -23,4 +27,25 @@ export const salvarPergunta = async (req: Request, res: Response) => {
     });
 
     res.redirect('/perguntar');
+}
+
+export const selecionarPergunta = async (req: Request, res: Response) => {
+    const id = req.params.id;
+ 
+    await Pergunta.findOne({
+        where: {
+            id
+        }
+    }).then((pergunta) => {
+        if(pergunta != undefined) {
+            res.render('pages/paginaResponder', {
+                pergunta
+            });
+        } else {
+            res.redirect('/');
+        }
+    }).catch(() => {
+        res.redirect('/');
+    });
+
 }
