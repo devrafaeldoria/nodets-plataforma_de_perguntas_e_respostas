@@ -3,15 +3,21 @@ import { sequelize } from '../instances/pg';
 
 export interface RespostasInterface extends Model {
     id: number,
+    idPergunta: number,
     resposta: string
 }
 
-export const Pergunta = sequelize.define<RespostasInterface>('Resposta', {
+export const Resposta = sequelize.define<RespostasInterface>('Resposta', {
     id: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    idPergunta: {
+        type: DataTypes.INTEGER
     },
     resposta: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     }
 }, {
     timestamps: false,

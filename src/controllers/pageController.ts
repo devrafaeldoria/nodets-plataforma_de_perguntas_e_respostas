@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Pergunta } from '../models/Pergunta';
+import { Resposta } from '../models/Resposta';
 
 export const home = async (req: Request, res: Response) => {
     let perguntas = await Pergunta.findAll({
@@ -36,10 +37,18 @@ export const selecionarPergunta = async (req: Request, res: Response) => {
         where: {
             id
         }
-    }).then((pergunta) => {
+    }).then(pergunta => {
         if(pergunta != undefined) {
-            res.render('pages/paginaResponder', {
-                pergunta
+            Resposta.findAll({
+                where: {idPergunta: pergunta.id},
+                order: [
+                    ['id', 'DESC']
+                ]
+            }).then(respostas => {
+                res.render('pages/paginaResponder', {
+                    pergunta,
+                    respostas
+                });
             });
         } else {
             res.redirect('/');
@@ -47,5 +56,18 @@ export const selecionarPergunta = async (req: Request, res: Response) => {
     }).catch(() => {
         res.redirect('/');
     });
+
+}
+
+export const salvarResposta = async (req: Request, res: Response) => {
+    let idPergunta = req.body.pergunta;
+    let resposta = req.body.resposta;
+
+    await Resposta.create({
+        idPergunta,
+        resposta
+    })
+
+    res.redirect(`/pergunta/${idPergunta}`);
 
 }
